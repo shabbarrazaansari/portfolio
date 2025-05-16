@@ -7,7 +7,7 @@ export const portfolioData = {
     contact: {
       email: "shabbaransari98@gmail.com",
       phone: "+91 809001210",
-      linkedin: "http://linkedin.com/in/shabbar-ansari-050660212"
+      linkedin: "http://linkedin.com/in/shabbaransari"
     }
   },
   
