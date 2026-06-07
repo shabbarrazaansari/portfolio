@@ -5,56 +5,62 @@ const Experience = () => {
   const { experience } = portfolioData;
 
   return (
-    <div className="section-container" id="experience">
+    <section className="section-container" id="experience">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.6 }}
-        className="animate-on-scroll"
       >
+        <p className="section-label">Career</p>
         <h2 className="section-title">Experience</h2>
+        <p className="section-subtitle text-muted">
+          Where I've worked and what I've built.
+        </p>
       </motion.div>
 
-      {/* Vertical Timeline */}
-      <div className="relative max-w-3xl mx-auto mt-12">
-        {/* Timeline Line */}
-        <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 h-full w-1 bg-secondary/30"></div>
-
-        {/* Timeline Items */}
-        {experience.map((job, index) => (
+      <div className="max-w-3xl space-y-6">
+        {experience.map((job, i) => (
           <motion.div
             key={job.id}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6, delay: index * 0.2 }}
-            className={`relative mb-12 md:mb-16 ${index % 2 === 0 ? 'md:text-right' : ''}`}
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.6, delay: i * 0.15 }}
+            className="group"
           >
-            <div className={`flex items-center ${index % 2 === 0 ? 'md:justify-end' : ''}`}>
-              <div className={`glass-card relative z-10 w-full md:w-[calc(50%-40px)] ${index % 2 === 0 ? 'md:ml-auto' : 'md:mr-auto'}`}>
-                {/* Timeline Dot */}
-                <div className="absolute top-6 -left-3 md:top-6 md:left-auto md:-right-[17px] w-6 h-6 rounded-full bg-secondary border-4 border-primary z-20"></div>
+            <div className="card-hover p-7 relative overflow-hidden">
+              {/* Left accent */}
+              <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-secondary to-transparent rounded-l-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                {/* Content */}
-                <div className="p-6">
-                  <div className="flex flex-col mb-2">
-                    <h3 className="text-xl font-bold text-light">{job.position}</h3>
-                    <h4 className="text-lg font-semibold text-secondary">{job.company}</h4>
-                    <span className="text-tertiary">{job.period}</span>
-                  </div>
-                  <ul className="list-disc list-inside text-light space-y-2 mt-4">
-                    {job.responsibilities.map((responsibility, i) => (
-                      <li key={i}>{responsibility}</li>
-                    ))}
-                  </ul>
+              {/* Header */}
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
+                <div>
+                  <h3 className="text-light font-bold text-lg">{job.position}</h3>
+                  <p className="text-secondary font-medium mt-0.5">{job.company}</p>
+                </div>
+                <div className="flex flex-col items-start sm:items-end gap-1 shrink-0">
+                  <span className="font-mono text-xs text-muted border border-border rounded-full px-3 py-1">
+                    {job.period}
+                  </span>
+                  <span className="font-mono text-xs text-dim">{job.type}</span>
                 </div>
               </div>
+
+              {/* Responsibilities */}
+              <ul className="space-y-2.5 mt-4">
+                {job.responsibilities.map((r, j) => (
+                  <li key={j} className="flex gap-3 text-muted text-sm leading-relaxed">
+                    <span className="text-secondary mt-1 shrink-0">▹</span>
+                    <span>{r}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </motion.div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

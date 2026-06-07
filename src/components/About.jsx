@@ -1,64 +1,98 @@
 import { motion } from 'framer-motion';
 import portfolioData from '../data/portfolioData';
 
+const stats = [
+  { value: '2+', label: 'Years Experience' },
+  { value: '10+', label: 'APIs Integrated' },
+  { value: '5+', label: 'Projects Shipped' },
+];
+
 const About = () => {
   const { bio } = portfolioData.personal;
 
   return (
-    <div className="section-container" id="about">
+    <section className="section-container" id="about">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.6 }}
-        className="animate-on-scroll"
       >
-        <h2 className="section-title">About Me</h2>
+        <p className="section-label">About</p>
+        <h2 className="section-title">Who I Am</h2>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-        {/* Bio Content */}
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
+        {/* Bio — wider col */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="animate-on-scroll"
+          transition={{ duration: 0.6, delay: 0.15 }}
+          className="lg:col-span-3 space-y-5"
         >
-          <div className="glass-card h-full">
-            <p className="text-lg leading-relaxed mb-6">{bio}</p>
-            <p className="text-lg leading-relaxed mb-6">
-              I specialize in creating seamless user experiences and robust backend systems that work together harmoniously. My expertise in API integration allows me to connect various services and create powerful, feature-rich applications.
-            </p>
-            <p className="text-lg leading-relaxed">
-              I'm passionate about clean code, performance optimization, and staying current with the latest web development trends and technologies.
-            </p>
+          <p className="text-muted text-lg leading-relaxed">{bio}</p>
+          <p className="text-muted leading-relaxed">
+            I specialize in creating seamless user experiences backed by robust APIs and scalable backend systems.
+            At Codenia Technologies, I've connected platforms like Shopify, WooCommerce, and Amazon while integrating
+            major shipping carriers — giving businesses real operational leverage.
+          </p>
+          <p className="text-muted leading-relaxed">
+            I care about clean, readable code, fast load times, and shipping features that actually work in production —
+            not just in dev.
+          </p>
+
+          {/* Tech highlights */}
+          <div className="flex flex-wrap gap-2 pt-2">
+            {['JavaScript', 'TypeScript', 'React', 'Node.js', 'Express.js', 'MongoDB', 'MySQL', 'AWS'].map(t => (
+              <span key={t} className="tag">{t}</span>
+            ))}
           </div>
         </motion.div>
 
-        {/* Profile Image */}
+        {/* Stats + card */}
         <motion.div
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="animate-on-scroll"
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="lg:col-span-2 space-y-4"
         >
-          <div className="glass-card overflow-hidden h-full flex items-center justify-center p-8">
-            <div className="relative w-64 h-64 mx-auto">
-              <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="absolute inset-0 w-full h-full text-secondary opacity-20">
-                <path fill="currentColor" d="M45.3,-59.1C59.9,-51.9,73.5,-40.5,79.8,-25.8C86.1,-11.1,85.1,6.7,78.5,21.4C71.9,36.1,59.7,47.6,45.7,56.5C31.7,65.4,15.8,71.7,-0.2,72C-16.2,72.2,-32.5,66.4,-45.3,56.5C-58.1,46.6,-67.5,32.6,-72.3,16.5C-77.1,0.4,-77.3,-17.8,-70.1,-32.5C-62.9,-47.2,-48.3,-58.4,-33.5,-65.4C-18.7,-72.4,-3.7,-75.2,9.8,-72.1C23.3,-69,30.7,-66.3,45.3,-59.1Z" transform="translate(100 100)" />
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <svg className="w-40 h-40 text-light" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path>
-                </svg>
-              </div>
-            </div>
+          {/* Stats grid */}
+          <div className="grid grid-cols-3 gap-3 lg:grid-cols-1 lg:gap-4">
+            {stats.map((s, i) => (
+              <motion.div
+                key={s.label}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 + i * 0.1 }}
+                className="card p-5 text-center lg:text-left hover:border-secondary/20 transition-colors"
+              >
+                <div className="text-3xl font-extrabold text-secondary mb-1">{s.value}</div>
+                <div className="text-sm text-muted">{s.label}</div>
+              </motion.div>
+            ))}
           </div>
+
+          {/* Currently card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.7 }}
+            className="card p-5 border-l-2 border-l-secondary"
+          >
+            <p className="font-mono text-xs text-secondary tracking-widest mb-3">CURRENTLY</p>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+              <span className="text-light text-sm font-medium">Open to opportunities</span>
+            </div>
+            <p className="text-muted text-xs">Full-time / Freelance</p>
+          </motion.div>
         </motion.div>
       </div>
-    </div>
+    </section>
   );
 };
 
